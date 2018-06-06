@@ -35,15 +35,21 @@ public class Main {
         input = buf.readLine();
 
         while (!input.equalsIgnoreCase("q")) {
+            String[] splited = input.split(" ");
             Iterator it = hmap.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry) it.next();
-                if (input.contains(pair.getKey().toString())) {
-                    output = input.replaceAll(pair.getKey().toString(), pair.getValue().toString());
-                   // System.out.println("my output "+output);
-                    input = output;
+
+                if (Arrays.asList(splited).contains(pair.getKey().toString())) {
+                    int index = Arrays.asList(splited).indexOf(pair.getKey().toString());
+                    splited[index] = pair.getValue().toString();
                 }
             }
+            for (int i = 0; i < splited.length; i++) {
+                output = output + " " + splited[i];
+                //System.out.println("^^^^^^^^^^my output " + output);
+            }
+
 
             Random rand = new Random();
             int x = rand.nextInt(2);
@@ -55,7 +61,7 @@ public class Main {
                     break;
                 case 1:
                     int n = rand.nextInt(3);
-                    System.out.println(qualifiers.get(n) +" "+ output);
+                    System.out.println(qualifiers.get(n)+ output);
                     output = "";
                     break;
             }
